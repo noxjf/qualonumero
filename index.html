@@ -14,9 +14,9 @@
     <p>Escolhemos um numero aleatorio de 1 à 100. Tente advinhar qual numero em 10 tentativas ou menos. Nós diremos se seu palpite está muito alto ou baixo</p>
 
     <div class="form">
-      <label for="guessField">Digite seu palpite: </label>
+      <label for="campoPalpite">Digite seu palpite: </label>
       <input type="number" min="1" max="100" required id="campoPalpite" class="campoPalpite">
-      <input type="submit" value="Enviar Palpite" class="envioPalpite" onclick="conferirPalpite()">
+      <input type="submit" id="envioPalpite" value="Enviar Palpite" class="envioPalpite">
     </div>
 
     <div class="resultParas">
@@ -26,7 +26,6 @@
     </div>
 
     <script>
-
     let numeroAleatorio = Math.floor(Math.random() * 100) + 1;
 
     let palpites = document.querySelector(".palpites");
@@ -44,7 +43,7 @@
         if (contagemPalpites === 1){
             palpites.textContent = "Palpites anteriores: ";
         }
-        palpites.textContent += palpiteUsuario + "/";
+        palpites.textContent += palpiteUsuario + " ";
 
         if (palpiteUsuario === numeroAleatorio) {
             ultimoResultado.textContent = "Parabéns ! Você Acertou!";
@@ -69,27 +68,28 @@
         campoPalpite.value = "";
         campoPalpite.focus();      
     }
-    
-    
+
+    envioPalpite.addEventListener("click", conferirPalpite);
+  
 
     function configFimDeJogo(){
         campoPalpite.disable = true;
         envioPalpite.disable = true;
-        botaoReinicio = document.createElement("botao");
-        botaoReinicio = textContent = "iniciar novo jogo";
+        botaoReinicio = document.createElement("button");
+        botaoReinicio.textContent = "Iniciar novo jogo";
         document.body.appendChild(botaoReinicio);
-        botaoReinicio.addEventListener("click". reiniciarJogo);
+        botaoReinicio.addEventListener("click", reiniciarJogo);
     }
 
     function reiniciarJogo(){
         contagemPalpites = 1;
 
-        let reiniciarParas = document.querySelectorAll(".resultadoParas p");
-        for (let i =0; i< reiniciarParas.length; i++){
+        let reiniciarParas = document.querySelectorAll(".resultParas p");
+        for (let i = 0; i < reiniciarParas.length; i++){
             reiniciarParas[i].textContent = "";
         }
 
-        botaoReinicio.parentNode.removeCHild(botaoReinicio);
+        botaoReinicio.parentNode.removeChild(botaoReinicio);
 
         campoPalpite.disable = false;
         envioPalpite.disable = false;
@@ -98,7 +98,7 @@
 
         ultimoResultado.computedStyleMap.backgroundColor = "white";
 
-        numeroAleatorio = math.floor(Math.random() * 100) + 1;
+        numeroAleatorio = Math.floor(Math.random() * 100) + 1;
 
     }
 
